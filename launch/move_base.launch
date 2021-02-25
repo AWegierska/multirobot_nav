@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch> 
+<!-- move_base -->
+  <!-- Arguments -->
+  <arg name="robot_id" default="default_robot"/>
+  <arg name="cmd_vel_topic" default="cmd_vel" />
+  <arg name="odom_topic" default="odom" />
+
+  <!-- move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <rosparam file="$(find multirobot_nav)/param/move_base.yaml" command="load" />
+    <rosparam file="$(find multirobot_nav)/param/local_planner.yaml" command="load" />
+    <rosparam file="$(find multirobot_nav)/param/global_costmap.yaml" command="load" />
+    <param name="global_costmap/robot_base_frame" value="$(arg robot_id)/base_footprint"/>
+    <param name="global_costmap/static/map_topic" value="/$(arg robot_id)/map"/>
+    <param name="global_costmap/obstacle_layer/laser/sensor_frame" value="$(arg robot_id)/base_scan"/>
+    <param name="global_costmap/obstacle_layer/laser/topic" value="/$(arg robot_id)/scan"/>
+
+    <rosparam file="$(find multirobot_nav)/param/local_costmap.yaml" command="load" />
+    <param name="local_costmap/robot_base_frame" value="$(arg robot_id)/base_footprint"/>
+    <param name="local_costmap/obstacle_layer/laser/sensor_frame" value="$(arg robot_id)/base_scan"/>
+    <param name="local_costmap/obstacle_layer/laser/topic" value="/$(arg robot_id)/scan"/>
+
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+    <remap from="odom" to="$(arg odom_topic)"/>
+  </node>
+</launch>

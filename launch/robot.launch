@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="model" default="waffle_pi"/>
+  <arg name="map_file" default="$(find multirobot_nav)/maps/map.yaml"/>
+  <arg name="open_rviz" default="false"/>
+  <arg name="robot_id" default="default_robot"/>
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+
+  <group ns = "$(arg robot_id)">
+      <!-- Map server -->
+      <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+      <include file="$(find multirobot_nav)/launch/amcl.launch">
+	    <arg name="robot_id" value="$(arg robot_id)"/>
+        <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
+        <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
+        <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
+      </include>    
+
+      <include file="$(find multirobot_nav)/launch/move_base.launch">
+        <arg name="robot_id" value="$(arg robot_id)"/>
+        <arg name="cmd_vel_topic" default="cmd_vel" />
+        <arg name="odom_topic" default="odom" />
+      </include>
+  </group>
+</launch>

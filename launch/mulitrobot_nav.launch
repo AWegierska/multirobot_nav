@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="map_file" default="$(find multirobot_nav)/maps/map.yaml"/>
+  <arg name="open_rviz" default="false"/>
+
+  <include file="$(find multirobot_nav)/launch/robot.launch">
+	  <arg name="map_file" default="$(arg map_file)" />
+      <arg name="robot_id" default="tb3_0"/>
+      <arg name="initial_pose_x" default="-6.85791254044"/>
+      <arg name="initial_pose_y" default="-1.00475418568"/>
+      <arg name="initial_pose_a" default="1.557"/>
+  </include>
+
+  <include file="$(find multirobot_nav)/launch/robot.launch">
+	  <arg name="map_file" default="$(arg map_file)" />
+      <arg name="robot_id" default="tb3_1"/>
+      <arg name="initial_pose_x" default="6.90174722672"/>
+      <arg name="initial_pose_y" default="-1.23372387886"/>
+      <arg name="initial_pose_a" default="1.574"/>
+  </include>
+
+  <include file="$(find multirobot_nav)/launch/robot.launch">
+	  <arg name="map_file" default="$(arg map_file)" />
+      <arg name="robot_id" default="tb3_2"/>
+      <arg name="initial_pose_x" default="0.518098175526"/>
+      <arg name="initial_pose_y" default="3.12827038765"/>
+      <arg name="initial_pose_a" default="0.0"/>
+  </include>
+
+  <!-- rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find multirobot_nav)/rviz/config.rviz"/>
+</launch>
