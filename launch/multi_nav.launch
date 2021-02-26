@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+  <param name="/use_sim_time" value="true" />
   <!-- Arguments -->
   <arg name="map_file" default="$(find multirobot_nav)/maps/map.yaml"/>
   <arg name="open_rviz" default="false"/>
@@ -12,7 +13,7 @@
       <arg name="initial_pose_a" default="1.557"/>
   </include>
 
-  <include file="$(find multirobot_nav)/launch/robot.launch">
+ <include file="$(find multirobot_nav)/launch/robot.launch">
 	  <arg name="map_file" default="$(arg map_file)" />
       <arg name="robot_id" default="tb3_1"/>
       <arg name="initial_pose_x" default="6.90174722672"/>
