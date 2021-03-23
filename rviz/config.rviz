@@ -338,6 +338,8 @@ Visualization Manager:
     Frame Rate: 30
   Name: root
   Tools:
+    - Class: rviz/SetGoal
+      Topic: /config/goal
     - Class: rviz/Interact
       Hide Inactive Objects: true
     - Class: rviz/SetInitialPose
